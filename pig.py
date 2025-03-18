@@ -50,11 +50,18 @@ class Game:
                 turn_score += roll
                 print(f"Accumulated score this turn is: {turn_score}")
 
-                decision = input(f"{current_player.name}, roll (r) or hold (h)? ").lower()
-                if decision == 'h':
-                    current_player.add_score(turn_score)
-                    print(f"{current_player.name} holds. Total Score: {current_player.score}")
-                    break
+                # Input validation to correct accepting all text as a roll.
+                while True:
+                    decision = input(f"{current_player.name}, roll (r) or hold (h)? ").strip().lower()
+                    if decision in ('r', 'h'):
+                        break
+                    else:
+                        print("Invalid input. Please enter 'r' to roll or 'h' to hold")
+
+                    if decision == 'h':
+                        current_player.add_score(turn_score)
+                        print(f"{current_player.name} holds. Total Score: {current_player.score}")
+                        break
 
         self.switch_turn()
 
